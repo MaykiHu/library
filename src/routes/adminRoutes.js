@@ -7,12 +7,14 @@ const books = [
     title: 'War and Peace',
     genre: 'Historical Fiction',
     author: 'Lev Nikolayevich Tolstoy',
+    bookId: 656,
     read: false,
   },
   {
     title: 'Les Misérables',
     genre: 'Historical Fiction',
     author: 'Victor Hugo',
+    bookId: 24280, // would put what the id is in the api key
     read: false,
   },
   {
@@ -67,13 +69,12 @@ function router(nav) {
           const db = client.db(dbName);
 
           const response = await db.collection('books').insertMany(books);
-          console.log(response); // eslint-disable-line
+          res.json(response);
         } catch (err) {
           console.log(err.stack); // eslint-disable-line
         }
         client.close();
       }());
-      res.send('inserting books');
     });
   return adminRouter;
 }
